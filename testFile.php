@@ -1,5 +1,6 @@
 <?php
 
 echo"Testing a push for Garrett"
-echo"sup";
+echo"sup"
+echo 'cool';
 ?>
