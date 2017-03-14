@@ -1,0 +1,28 @@
+{
+  "name": "assign1_girwi784",
+  "version": "0.0.2",
+  "dependencies": {
+    "body-parser": "^1.16.1",
+    "express": "^4.14.1",
+    "express-session": "^1.15.1",
+    "fs": "0.0.2",
+    "http": "0.0.0",
+    "nodemon": "^1.11.0",
+    "querystring": "^0.2.0"
+  },
+  "description": "web 3 assignment 1",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garrett5150/assign1_girwi784.git"
+  },
+  "author": "Garrett Irwin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/garrett5150/assign1_girwi784/issues"
+  },
+  "homepage": "https://github.com/garrett5150/assign1_girwi784#readme"
+}
