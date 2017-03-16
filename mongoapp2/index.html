@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8">
+    <title></title>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous" ></script>
+
+    <script>
+      $(document).ready(function () {
+
+          $('#course-btn').on('click', function () {
+            $('#contentArea').empty();
+            var courseList = $('<table><th>Course Name</th></table>');
+            $.post('/listCourses', function(data) {
+
+              $.each(data, function(i,item) {
+                var course = $('<tr><td>' + item.course  + '</td></tr>');
+                courseList.append(course);
+                $('#contentArea').append(courseList);
+              });
+
+            });
+          });
+
+          $('#add-btn').on('click', function () {
+            $('#contentArea').empty();
+            var courseList = $('<table><th>Course Name</th></table>');
+            $.post('/listCourses', function(data) {
+
+              $.each(data, function(i,item) {
+                var course = $('<tr><td>' + item.course  + '</td></tr>');
+                courseList.append(course);
+                $('#contentArea').append(courseList);
+              });
+
+            });
+            var courseInfo = $('<input type="text" id="course-name"/><input type="submit" value="Submit" id="submit-course"/>');
+            $('#contentArea').append(courseInfo);
+
+            $('#submit-course').on('click', function() {
+              location.reload();
+              var courseName = $('#course-name').val();
+              $.post('/addCourse', {'courseName': courseName}, function(data) {
+
+              });
+            });
+          });
+
+          $('#rem-btn').on('click', function () {
+
+
+              $('#contentArea').empty();
+              var courseList = $('<table><th>Course Name</th></table>');
+              $.post('/listCourses', function(data) {
+
+                $.each(data, function(i,item) {
+                  var course = $('<tr><td class="name">' + item.course  + '</td> <td><input type="button" value="Remove" class="rem-course"/></td> </tr>');
+                  courseList.append(course);
+                  $('#contentArea').append(courseList);
+                });
+
+                $('.rem-course').on('click', function() {
+                  location.reload();
+                  var row = $(this).closest('tr');
+                  var toRemove = row.find('.name').html();
+                  $.post('/removeCourse',{'courseName':toRemove}, function(data){
+
+                  });
+                });
+              });
+
+          });
+
+      });
+    </script>
+  </head>
+  <body>
+    <p> Homepage yo</p>
+    <input type="button" value="Courses" id="course-btn"/>
+    <input type="button" value="Add Course" id="add-btn"/>
+    <input type="button" value="Remove Course" id="rem-btn"/>
+    <div id="contentArea"></div>
+  </body>
+</html>

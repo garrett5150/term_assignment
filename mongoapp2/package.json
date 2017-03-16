@@ -1,0 +1,19 @@
+{
+  "name": "mongoapp2",
+  "version": "1.0.0",
+  "description": "this is test app for mongodb connection",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "keywords": [
+    "mongodb",
+    "nodejs"
+  ],
+  "author": "ryan",
+  "license": "MIT",
+  "dependencies": {
+    "assert": "latest",
+    "mongodb": "^2.2.24"
+  }
+}
