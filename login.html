@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous" ></script>
+
+    <script>
+      $(document).ready(function() {
+
+        $('.button').on('click', function(e) {
+
+          e.preventDefault();
+          var username = $('#username').val();
+          var password = $('#password').val();
+
+          $.post('/login', {'un':username, 'pw':password}, function (data) {
+
+            console.log(data);
+            //document.write(data);
+            window.location.replace(data);
+          })
+
+        });
+
+
+      });
+    </script>
+  </head>
+  <body>
+    <form class="ui form">
+          <div class="field">
+            <label>Username</label>
+            <input id="username" name="username" placeholder="Username" type="text">
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input id="password" name="password" placeholder="Password" type="password">
+          </div>
+
+          <button class="ui button" type="submit">Submit</button>
+        </form>
+  </body>
+</html>

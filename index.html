@@ -8,6 +8,78 @@
     <!--Link to our specific bootstrap theme -> https://bootswatch.com/solar/ -->
     <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+
+          $('#course-btn').on('click', function () {
+            $('#contentArea').empty();
+            var courseList = $('<table><th>Course Name</th></table>');
+            $.post('/listCourses', function(data) {
+
+              $.each(data, function(i,item) {
+                var course = $('<tr><td>' + item.course  + '</td></tr>');
+                courseList.append(course);
+                $('#contentArea').append(courseList);
+              });
+
+            });
+          });
+
+          $('#add-btn').on('click', function () {
+            $('#contentArea').empty();
+            var courseList = $('<table><th>Course Name</th></table>');
+            $.post('/listCourses', function(data) {
+
+              $.each(data, function(i,item) {
+                var course = $('<tr><td>' + item.course  + '</td></tr>');
+                courseList.append(course);
+                $('#contentArea').append(courseList);
+              });
+
+            });
+            var courseInfo = $('<input type="text" id="course-name"/><input type="submit" value="Submit" id="submit-course"/>');
+            $('#contentArea').append(courseInfo);
+
+            $('#submit-course').on('click', function() {
+              location.reload();
+              var courseName = $('#course-name').val();
+              $.post('/addCourse', {'courseName': courseName}, function(data) {
+
+              });
+            });
+          });
+
+          $('#rem-btn').on('click', function () {
+
+
+              $('#contentArea').empty();
+              var courseList = $('<table><th>Course Name</th></table>');
+              $.post('/listCourses', function(data) {
+
+                $.each(data, function(i,item) {
+                  var course = $('<tr><td class="name">' + item.course  + '</td> <td><input type="button" value="Remove" class="rem-course"/></td> </tr>');
+                  courseList.append(course);
+                  $('#contentArea').append(courseList);
+                });
+
+                $('.rem-course').on('click', function() {
+                  location.reload();
+                  var row = $(this).closest('tr');
+                  var toRemove = row.find('.name').html();
+                  $.post('/removeCourse',{'courseName':toRemove}, function(data){
+
+                  });
+                });
+              });
+
+          });
+
+      });
+    </script>
+
+
+
 </head>
 
 <body>
@@ -83,7 +155,25 @@
 
     <div class="MainContent">
         <div class="col-md-8">
-            Center column where we will use polymer to add specific elements based on the "page" we go to.
+
+          <form class="ui form">
+                <div class="field">
+                  <label>Username</label>
+                  <input id="username" name="username" placeholder="Username" type="text">
+                </div>
+                <div class="field">
+                  <label>Password</label>
+                  <input id="password" name="password" placeholder="Password" type="password">
+                </div>
+
+                <button class="ui button" type="submit">Submit</button>
+            </form>
+
+          <!-- <input type="button" value="Courses" id="course-btn"/>
+          <input type="button" value="Add Course" id="add-btn"/>
+          <input type="button" value="Remove Course" id="rem-btn"/>
+          <div id="contentArea"></div> -->
+
         </div>
         <div class="col-md-2">
             Right column used to make the page look symmetrical.
