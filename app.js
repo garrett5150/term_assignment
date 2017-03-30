@@ -10,6 +10,12 @@ var mongoDB = require('app.js');
 app.use(express.static("themes"));
 app.use(bodyParse.urlencoded({extended:false}));
 
+app.use(session({
+  secret: "supersecretcode",
+  cookie:{maxAge:20 * 60 * 1000},
+  resave:false,
+  saveUninitialized:false
+}));
 
 app.use('/', indexrouter);
 indexrouter.route('/').get(function (req, res) {
@@ -64,7 +70,11 @@ app.post('/login', function(req,res){
   db.collection('user').find({name:username, pwd:password}).toArray(function(error, documents) {
 
     if(documents.length > 0){
+      req.session.token = "true";
+      req.session.userID = documents[0].userID;
+      //console.log(req.session.userID);
       res.send('http://localhost:3000/index');
+
     }
     else{
       res.send('http://localhost:3000/error');
@@ -74,6 +84,22 @@ app.post('/login', function(req,res){
 
 
 
+});
+
+app.post('/displayUserInfo', function(req,res){
+  var id = req.session.userID;
+  var db = mongoDB.getDB();
+  db.collection('user').find({userID:id}).toArray(function(error,documents) {
+    //console.log(documents[0].name);
+    res.send(documents[0].name);
+  });
+
+
+});
+
+app.post('/logout', function(req,res) {
+  req.session = null;
+  res.send('http://localhost:3000');
 });
 
 var server = app.listen(3000, function () {
