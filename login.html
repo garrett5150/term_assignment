@@ -1,43 +1,54 @@
-
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous" ></script>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    <!-- Bootstrap theme -->
+    <!--Link to our specific bootstrap theme -> https://bootswatch.com/solar/ -->
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
 
     <script>
-      $(document).ready(function() {
+        $(document).ready(function () {
 
-        $('.button').on('click', function(e) {
+            $('.button').on('click', function (e) {
 
-          e.preventDefault();
-          var username = $('#username').val();
-          var password = $('#password').val();
+                e.preventDefault();
+                var username = $('#username').val();
+                var password = $('#password').val();
 
-          $.post('/login', {'un':username, 'pw':password}, function (data) {
+                $.post('/login', {'un': username, 'pw': password}, function (data) {
 
-            console.log(data);
-            //document.write(data);
-            window.location.replace(data);
-          })
+                    console.log(data);
+                    //document.write(data);
+                    window.location.replace(data);
+                })
+
+            });
+
 
         });
-
-
-      });
     </script>
-  </head>
-  <body>
-    <form class="ui form">
-          <div class="field">
-            <label>Username</label>
-            <input id="username" name="username" placeholder="Username" type="text">
-          </div>
-          <div class="field">
-            <label>Password</label>
-            <input id="password" name="password" placeholder="Password" type="password">
-          </div>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 offset-6">
+            <form class="ui form form-horizontal">
+                <div class="field form-group">
+                    <label class="control-label">Username</label>
+                    <input class="form-control" id="username" name="username" placeholder="Username" type="text">
+                </div>
+                <div class="field form-group">
+                    <label class="form-label">Password</label>
+                    <input class="form-control" id="password" name="password" placeholder="Password" type="password">
+                </div>
 
-          <button class="ui button" type="submit">Submit</button>
-        </form>
-  </body>
+                <button class="ui button btn btn-success" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
 </html>

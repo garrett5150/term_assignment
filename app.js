@@ -9,6 +9,8 @@ var mongoDB = require('app.js');
 
 app.use(express.static("themes"));
 app.use(bodyParse.urlencoded({extended:false}));
+
+
 app.use('/', indexrouter);
 indexrouter.route('/').get(function (req, res) {
     var fn = __dirname + '/login.html';
