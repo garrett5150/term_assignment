@@ -29,18 +29,35 @@ mongoDB.connect( function( ) {
 
 indexrouter.route('/index').get(function (req, res) {
     var fn = __dirname + '/index.html';
-    res.sendFile(fn);
+    if(req.session.token == "true"){
+      res.sendFile(fn);
+    }
+    else{
+      res.send('http://localhost:3000/error');
+    }
 });
 
 
 app.post('/listCourses', function(req,res){
 
    var db = mongoDB.getDB();
+   var id = req.session.userID;
 
+   var courseIDs = [];
+   var courseList = [];
+    db.collection('user_course').find({userID:id}).toArray(function(error, documents) {
+      //console.log(documents);
+      for(i=0;i<documents.length;i++){
+        courseIDs[i] = documents[i].courseID;
+      }
+        //console.log(documents[i].courseID);
+        db.collection('course').find({courseID: {$in: courseIDs} }).toArray(function(err,doc) {
 
-   db.collection('courses').find({}).toArray(function(error, documents) {
+          console.log(doc);
+          res.send(doc);
 
-    res.send(documents);
+        });
+
   });
 
 });
@@ -48,6 +65,7 @@ app.post('/listCourses', function(req,res){
 app.post('/addCourse', function(req,res) {
 
   var db = mongoDB.getDB();
+  var id = req.session.userID;
   var name = req.body.courseName;
   db.collection('courses').insert({course:name});
 
@@ -98,7 +116,7 @@ app.post('/displayUserInfo', function(req,res){
 });
 
 app.post('/logout', function(req,res) {
-  req.session = null;
+  req.session.token = null;
   res.send('http://localhost:3000');
 });
 
