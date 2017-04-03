@@ -109,11 +109,10 @@
     displayCourses:function(){
       alert("hello");
       courseList = [];
-      //var courseList= $('<table><th>Course Name</th></table>');
       $.post('/listCourses', function (data) {
           $.each(data, function (i, item) {
             alert(data);
-              var course = item.course_Name;//$('<tr><td>' + item.course_Name + '</td></tr>');
+              var course = item.course_Name;
 
               courseList.push(course);
           });
