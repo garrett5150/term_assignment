@@ -54,6 +54,7 @@
                   </div>
                 </div>
                 <div id="contentArea" hidden$="{{hideView}}">
+                  {{contentPls}}
                   <div class="col-xs-6 col-sm-6 col-md-6">
                     <course-profile id=1></course-profile>
                   </div>
@@ -104,22 +105,22 @@
   Polymer({
     is: 'student-profile',
     ready:function(){
-
     },
     displayCourses:function(){
-      $('#contentArea').empty();
-    displayCourses:function(){
-      var courseList = $('<table><th>Course Name</th></table>');
+      alert("hello");
+      courseList = [];
+      //var courseList= $('<table><th>Course Name</th></table>');
       $.post('/listCourses', function (data) {
-          console.log(data);
           $.each(data, function (i, item) {
-              var course = $('<tr><td>' + item.course_Name + '</td></tr>');
+            alert(data);
+              var course = item.course_Name;//$('<tr><td>' + item.course_Name + '</td></tr>');
 
-              courseList.append(course);
+              courseList.push(course);
           });
-          $('#contentArea').append(courseList);
+          alert(courseList);
+          this.contentPls=courseList;
       });
-      this.contentPls=courseList;
+
     },
     properties:{
       _sname:{
@@ -136,9 +137,9 @@
       }
     },
     hideView: true,
-    displayCourses: function(){
+    /*displayCourses: function(){
       this.hideView =!this.hideView
-    }
+    }*/
 
   });
   </script>
