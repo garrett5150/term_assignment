@@ -108,7 +108,6 @@
     },
     displayCourses:function(){
       $('#contentArea').empty();
-    displayCourses:function(){
       var courseList = $('<table><th>Course Name</th></table>');
       $.post('/listCourses', function (data) {
           console.log(data);
