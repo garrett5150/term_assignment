@@ -8,7 +8,6 @@ var indexrouter = express.Router();
 var mongoDB = require('app.js');
 
 app.use(express.static("themes"));
-app.use(express.static("public"));
 app.use(bodyParse.urlencoded({extended:false}));
 
 app.use(session({
@@ -86,15 +85,6 @@ app.post('/login', function(req,res){
 
 
 });
-
-
-app.get('/studentpage', function(req,res)
-{
-  var fn=__dirname + '/public/' + 'student.html'
-  console.log(fn);
-  res.sendFile(fn);
-})
-
 
 app.post('/displayUserInfo', function(req,res){
   var id = req.session.userID;

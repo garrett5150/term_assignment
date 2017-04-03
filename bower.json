@@ -2,10 +2,7 @@
   "name": "assign1_girwi784",
   "version": "0.0.2",
   "dependancies": {
-    "jquery": "",
-    "polymer": ""
-  },
-  "dependencies": {
-    "chart.js": "^2.5.0"
+    "jquery":"",
+    "polymer":""
   }
 }
