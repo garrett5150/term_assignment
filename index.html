@@ -24,9 +24,9 @@
                 $('#contentArea').empty();
                 var courseList = $('<table><th>Course Name</th></table>');
                 $.post('/listCourses', function (data) {
-
+                    console.log(data);
                     $.each(data, function (i, item) {
-                        var course = $('<tr><td>' + item.course + '</td></tr>');
+                        var course = $('<tr><td>' + item.course_Name + '</td></tr>');
                         courseList.append(course);
                         $('#contentArea').append(courseList);
                     });
@@ -40,7 +40,7 @@
                 $.post('/listCourses', function (data) {
 
                     $.each(data, function (i, item) {
-                        var course = $('<tr><td>' + item.course + '</td></tr>');
+                        var course = $('<tr><td>' + item.course_Name + '</td></tr>');
                         courseList.append(course);
                         $('#contentArea').append(courseList);
                     });
@@ -66,7 +66,7 @@
                 $.post('/listCourses', function (data) {
 
                     $.each(data, function (i, item) {
-                        var course = $('<tr><td class="name">' + item.course + '</td> <td><input type="button" value="Remove" class="rem-course"/></td> </tr>');
+                        var course = $('<tr><td class="name">' + item.course_Name + '</td> <td><input type="button" value="Remove" class="rem-course"/></td> </tr>');
                         courseList.append(course);
                         $('#contentArea').append(courseList);
                     });
