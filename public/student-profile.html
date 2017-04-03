@@ -1,4 +1,5 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <link rel="import" href="chart-js-import.html">
 <dom-module id="student-profile">
   <template>
@@ -104,15 +105,16 @@
 
     },
     displayCourses:function(){
-      alert("hello");
+      $('#contentArea').empty();
       var courseList = $('<table><th>Course Name</th></table>');
       $.post('/listCourses', function (data) {
-
+          console.log(data);
           $.each(data, function (i, item) {
-              var course = $('<tr><td>' + item.course + '</td></tr>');
-              console.log(course);
+              var course = $('<tr><td>' + item.course_Name + '</td></tr>');
+
               courseList.append(course);
           });
+          $('#contentArea').append(courseList);
       });
 
     },
