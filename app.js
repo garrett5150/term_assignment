@@ -112,7 +112,29 @@ app.post('/removeCourse', function(req,res){
 });
 
 app.post('/addUser', function(req,res) {
-  console.log("posted add user");
+  var db = mongoDB.getDB();
+  var username = req.body.name;
+  var password = req.body.pw;
+  var isStudent = req.body.isStudent;
+
+  //console.log("add user:" + username + " | " + isStudent);
+
+  db.collection('user').find({name:username}).toArray(function(error, documents) {
+    //console.log(documents.length);
+    if (documents.length > 0){
+      res.redirect("/signup?un=true");
+    }
+    else {
+      if (isStudent==1){
+
+      }
+      else {
+        
+      }
+
+      res.redirect("/?un=false");
+    }
+  });
 });
 
 app.post('/login', function(req,res){
