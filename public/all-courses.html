@@ -24,6 +24,13 @@
                   <span>Complete</span>
                 </div>
               </div>
+                <div class="row">
+                  <div class="row col-xs-10 col-sm-10 col-md-10" style="margin-left:2px;"><course-profile name="Anthropology" done="100"></course-profile></div>
+                  <div class="row col-xs-10 col-sm-10 col-md-10" style="margin-left:2px;"><course-profile name="Networking" done="100"></course-profile></div>
+                  <div class="row col-xs-10 col-sm-10 col-md-10" style="margin-left:2px;"><course-profile name="Games Dev" done="100"></course-profile></div>
+                  <div class="row col-xs-10 col-sm-10 col-md-10" style="margin-left:2px;"><course-profile name="Global Business" done="100"></course-profile></div>
+                  <div class="row col-xs-10 col-sm-10 col-md-10" style="margin-left:2px;"><course-profile name="Japanese Culture" done="100"></course-profile></div>
+                </div>
             </div>
           </div>
           <div class="col-xs-3 col-sm-3 col-md-3">
@@ -34,6 +41,13 @@
                   <span>Complete</span>
                 </div>
               </div>
+              <div class="row">
+                <div class="row col-xs-10 col-sm-10 col-md-10" style="margin-left:2px;"><course-profile name="Prog IV" done="100"></course-profile></div>
+                <div class="row col-xs-10 col-sm-10 col-md-10" style="margin-left:2px;"><course-profile name="System Admin" done="100"></course-profile></div>
+                <div class="row col-xs-10 col-sm-10 col-md-10" style="margin-left:2px;"><course-profile name="Proj Mgmt" done="100"></course-profile></div>
+                <div class="row col-xs-10 col-sm-10 col-md-10" style="margin-left:2px;"><course-profile name="Etnrep" done="100"></course-profile></div>
+                <div class="row col-xs-10 col-sm-10 col-md-10" style="margin-left:2px;"><course-profile name="Cross-Cultural Mgmt" done="100"></course-profile></div>
+              </div>
             </div>
           </div>
           <div class="col-xs-3 col-sm-3 col-md-3">
@@ -43,6 +57,11 @@
                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="60" style="width: 100%">
                   <span>Complete</span>
                 </div>
+              </div>
+              <div class="row">
+                <div class="row col-xs-10 col-sm-10 col-md-10" style="margin-left:2px;"><course-profile name="Web II" done="100"></course-profile></div>
+                <div class="row col-xs-10 col-sm-10 col-md-10" style="margin-left:2px;"><course-profile name="Database II" done="100"></course-profile></div>
+                <div class="row col-xs-10 col-sm-10 col-md-10" style="margin-left:2px;"><course-profile name="Sci Fi" done="100"></course-profile></div>
               </div>
             </div>
           </div>
@@ -58,7 +77,7 @@
         $.post('/listCourses', function (data) {
 
             $.each(data, function (i, item) {
-                var course = $('<div class=\"row\ col-xs-10 col-sm-10 col-md-10" style="margin-left:2px;"><course-profile name=\"' + item.course_Name + '\"></course-profile></div>');
+                var course = $('<div class=\"row\ col-xs-10 col-sm-10 col-md-10" style="margin-left:2px;"><course-profile done="67" name=\"' + item.course_Name + '\"></course-profile></div>');
                 courseList.append(course);
                 $('#contentArea').append(courseList);
             });
