@@ -1,4 +1,6 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/iron-ajax/iron-request.html">
+<link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
 <dom-module id="addCourse-Form">
     <template>
         <div class="row">
@@ -53,6 +55,13 @@
                 </form>
             </div>
         </div>
+
+  <iron-ajax
+      id="ajax"
+      url=""
+      method="post"
+      on-response="postComplete">
+  </iron-ajax>
     </template>
     <script>
         var labcounter = 1;
@@ -123,7 +132,10 @@
 
             /*this is where we will add to the db*/
             addCourse: function(){
-
+              this.$.ajax.url="/addCourse";
+              var course_Name = $('#name').val();
+              this.$.ajax.params={'courseName':course_Name};
+              this.$.ajax.generateRequest();
             }
         });
     </script>

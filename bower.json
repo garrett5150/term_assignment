@@ -2,8 +2,9 @@
   "name": "term_assignment",
   "version": "0.0.2",
   "dependencies": {
-    "jquery":"",
-    "polymer":"",
-    "chart.js":"^2.5.0"
+    "jquery": "",
+    "polymer": "",
+    "chart.js": "^2.5.0",
+    "es6-promise": "^4.0.5"
   }
 }

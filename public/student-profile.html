@@ -1,6 +1,7 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
+<link rel="import" href="bower_components/iron-ajax/iron-request.html">
+<link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="course.html">
 
 <dom-module id="student-profile">
@@ -17,7 +18,7 @@
                     </div>
                     <div class="container">
                       <div class="col-sm-2 col-md-2">
-                        <h4><i class="glyphicon glyphicon-user"></i> <strong>{{_sname}}</strong></h4>
+                        <h4><i class="glyphicon glyphicon-user" id="cheater"></i> <strong>{{_sname}}</strong></h4>
                         <small>
                           <cite title="City, ST">
                             <i class="glyphicon glyphicon-map-marker"></i> {{_city}}
@@ -96,11 +97,24 @@
             </div>
           </div>
       </div>
+      <iron-ajax
+          id="ajax"
+          url=""
+          handle-as="text"
+          method="post"
+          on-response="postComplete">
+      </iron-ajax>
   </template>
   <script>
   Polymer({
     is: 'student-profile',
     ready:function(){
+      this.$.ajax.url="/displayUserInfo";
+      this.$.ajax.generateRequest();
+    },
+    postComplete: function(request){
+      var name =request.detail.response;
+      $('#cheater').append(name);
     },
     displayCourses:function(){
       $('#contentArea').empty();
@@ -117,8 +131,8 @@
     },
     properties:{
       _sname:{
-          type:String,
-          value:"Carille Mendoza"
+          type:String
+
       },
       _city:{
         type:String,

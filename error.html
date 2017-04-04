@@ -1,10 +1,74 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
-  </head>
-  <body>
-    Error
-  </body>
+    <!-- Bootstrap theme -->
+    <!--Link to our specific bootstrap theme -> https://bootswatch.com/solar/ -->
+    <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+    <script>
+    var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+    };
+
+    var un = getUrlParameter('un');
+
+    if (un != null){
+    alert("user created");
+    }
+
+        $(document).ready(function () {
+
+            $('.button').on('click', function (e) {
+
+                e.preventDefault();
+                var username = $('#username').val();
+                var password = $('#password').val();
+
+                $.post('/login', {'un': username, 'pw': password}, function (data) {
+
+                    console.log(data);
+                    //document.write(data);
+                    window.location.replace(data);
+                })
+
+            });
+
+        $('#login').on('click', function(e){
+
+          e.preventDefault();
+          window.location = "http://localhost:3000";  
+        });
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="row" style="padding-top:15%;">
+        <div class="col-md-4 col-md-offset-4">
+          <div class="well">
+            Whoops, something went wrong
+            <br/><br/>
+            <button id="login" class="ui button btn btn-success" type="submit">Log In Again</button>
+            <br/><br/>
+            <p>Don't have an account? <a href="/signup"> Sign up </a></p>
+          </div>
+        </div>
+    </div>
+</div>
+</body>
 </html>
