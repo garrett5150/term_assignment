@@ -80,6 +80,10 @@ app.post('/removeCourse', function(req,res){
 
 });
 
+app.post('/addUser', function(req,res) {
+  console.log("posted add user");
+});
+
 app.post('/login', function(req,res){
 
   var db = mongoDB.getDB();
@@ -105,6 +109,11 @@ app.post('/login', function(req,res){
 
 });
 
+app.get('/signup', function(req, res){
+  var signup_page = __dirname + '/public/signup.html';
+  console.log(signup_page);
+  res.sendFile(signup_page);
+});
 
 app.get('/studentpage', function(req,res)
 {
