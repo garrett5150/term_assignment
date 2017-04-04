@@ -1,0 +1,60 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<dom-module id="addCourse-Form">
+    <template>
+        <div class="row">
+        <div class="col-md-offset-1">
+            <legend>Add a Course</legend>
+            <form action="" class="form-horizontal">
+                <div class="form-group">
+                    <label for="name" class="col-lg-2">Course Name</label>
+                    <div class="col-lg-5 input-lg">
+                        <input class="form-control" type="text" id="name" placeholder="Course Name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="instrutor" class="col-lg-2">Instrutor's Name</label>
+                    <div class="col-lg-5 input-lg">
+                        <input class="form-control" type="text" id="instrutor" placeholder="Instructor">
+                    </div>
+                </div>
+
+                <!--Where the marks will go (test and %, exam and %, project and %, etc)-->
+                <div class="marks"></div>
+
+                <div class="form-group">
+                    <label for="minimumGrade" class="col-lg-2">Minimum Grade Required</label>
+                    <div class="col-lg-5 input-lg">
+                        <input class="form-control" type="text" id="minimumGrade" placeholder="Minimum Grade">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="wantedGrade" class="col-lg-2">Grade Wanted</label>
+                    <div class="col-lg-5 input-lg">
+                        <input class="form-control" type="text" id="wantedGrade" placeholder="Grade Wanted">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+            </form>
+        </div>
+        </div>
+    </template>
+    <script>
+        Polymer({
+            is: 'addCourse-Form',
+            ready: function () {
+
+            },
+            properties: {},
+            listeners: {
+                'submt':'addCourse'
+            },
+
+            addCourse: function(){
+
+            }
+        });
+    </script>
+</dom-module>

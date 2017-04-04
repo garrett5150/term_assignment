@@ -6,10 +6,13 @@
 
     <!-- Bootstrap theme -->
     <!--Link to our specific bootstrap theme -> https://bootswatch.com/solar/ -->
-    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="student-profile.html">
     <link rel="stylesheet" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <script src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+
+    <!--Polymer Links-->
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="addCourse-Form.html">
 
     <script>
         $(document).ready(function () {
@@ -89,6 +92,12 @@
 
             });
 */
+
+            $('#addCourse').on('click', function(){
+                $('.mainContent').empty();
+                $('.mainContent').append("<addCourse-Form>");
+            });
+
         });
     </script>
 
@@ -99,6 +108,7 @@
 
 
 <!--TODO Header bar....might need to convert a links to buttons and apply JS to them -->
+<div class="row">
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
@@ -120,6 +130,7 @@
                 <li><a href="#">GPA Planner</a></li>
                 <li><a href="#">Classes</a></li>
                 <li><a href="#">Reports</a></li>
+                <li><a href="#" id="addCourse">Add Course</a></li>
               </ul>
             <div class="pull-right">
             <input class="btn btn-default" style="margin-top:7px;" type="button" value="Logout" id="logout-btn"/>
@@ -128,10 +139,11 @@
     </div>
 
 </nav>
+</div>
 <!-- End Header -->
 
 
-<div class="row" style="margin-left:0;">
+<div class="row mainContent" style="margin-left:0;">
   <student-profile id="student1" frame="Carille Mendoza" fcity="Calgary, AB" univ="Mount Royal University"> </student-profile>
 </div>
 

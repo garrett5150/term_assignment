@@ -1,5 +1,5 @@
 {
-  "name": "assign1_girwi784",
+  "name": "term_assignment",
   "version": "0.0.2",
   "dependencies": {
     "body-parser": "^1.17.1",
@@ -20,7 +20,7 @@
     "type": "git",
     "url": "git+https://github.com/garrett5150/assign1_girwi784.git"
   },
-  "author": "Garrett Irwin",
+  "author": "Garrett Irwin, Ryan Choi, Carille Mendoza, Daniel Tetzlaff",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/garrett5150/assign1_girwi784/issues"
