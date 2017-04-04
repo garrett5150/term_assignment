@@ -1,0 +1,70 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="course.html">
+<dom-module id="all-courses">
+    <template>
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-3 col-sm-3 col-md-3">
+            <div class="well">
+              <h3> Winter 2017 </h3>
+              <div class="progress">
+                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="60" style="width: 75%">
+                  <span>75% Complete</span>
+                </div>
+              </div>
+              <div id="contentArea">
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3">
+            <div class="well">
+              <h3> Fall 2016 </h3>
+              <div class="progress">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="60" style="width: 100%">
+                  <span>Complete</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3">
+            <div class="well">
+              <h3> Winter 2016 </h3>
+              <div class="progress">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="60" style="width: 100%">
+                  <span>Complete</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3">
+            <div class="well">
+              <h3> Fall 2015 </h3>
+              <div class="progress">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="60" style="width: 100%">
+                  <span>Complete</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> <!-- row-->
+      </div><!-- container -->
+    </template>
+    <script>
+    Polymer({
+      is: 'all-courses',
+      ready:function(){
+        $('#contentArea').empty();
+        var courseList = $('<div class="row"><p> IN PROGRESS </p></div>');
+        $.post('/listCourses', function (data) {
+
+            $.each(data, function (i, item) {
+                var course = $('<div class=\"row\ col-xs-10 col-sm-10 col-md-10" style="margin-left:2px;"><course-profile name=\"' + item.course_Name + '\"></course-profile></div>');
+                courseList.append(course);
+                $('#contentArea').append(courseList);
+            });
+
+        });
+      }
+    })
+    </script>
+  </dom-module>
