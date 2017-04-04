@@ -7,6 +7,23 @@ var http = require('http');
 var indexrouter = express.Router();
 var mongoDB = require('app.js');
 
+function getNextSequence(name) {
+  var db = mongoDB.getDB();
+   var ret = db.collection('counter').findAndModify(
+
+            {_id:name},
+            [],
+            { $inc: { seq: 1 } },
+            {new:true},
+            function(err,doc) {
+              console.log(doc);
+            }
+
+   );
+
+   //return ret.seq;
+}
+
 app.use(express.static("themes"));
 app.use(express.static("public"));
 app.use(bodyParse.urlencoded({extended:false}));
@@ -54,7 +71,7 @@ app.post('/listCourses', function(req,res){
         //console.log(documents[i].courseID);
         db.collection('course').find({courseID: {$in: courseIDs} }).toArray(function(err,doc) {
 
-          console.log(doc);
+          //console.log(doc);
           res.send(doc);
 
         });
@@ -68,7 +85,21 @@ app.post('/addCourse', function(req,res) {
   var db = mongoDB.getDB();
   var id = req.session.userID;
   var name = req.body.courseName;
-  db.collection('courses').insert({course:name});
+  var currentID;
+  // db.collection('course').insert({course_Name:name, teacherID: id, userID: id, courseID: getNextSequence("courseID")}, function(error,documents){
+  //   console.log(documents);
+  // });
+  // db.collection('counter').find({}).toArray(  function(err,doc){
+  //   console.log(doc);
+  // });
+  db.collection('counter').update({_id:"_courseID"},  { $inc: { seq: 1} } );
+
+  db.collection('counter').find({_id:"_courseID"}).toArray(function(err,doc){
+    db.collection('course').insert({course_Name:name, teacherID: id, userID: id, courseID: doc[0].seq});
+    db.collection('user_course').insert({courseID:doc[0].seq, studentID: id, userID: id});
+  });
+
+
 
 });
 
