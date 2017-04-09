@@ -6,6 +6,20 @@ var bodyParse = require('body-parser');
 var http = require('http');
 var indexrouter = express.Router();
 var mongoDB = require('app.js');
+var crypto = require('crypto'),
+    algorithm = 'aes-256-ctr',
+    cryPass = 'd6F3Efeq';
+
+
+function encrypt(text){
+  if (text == undefined){ }
+  else {
+  var cipher = crypto.createCipher(algorithm,cryPass)
+  var crypted = cipher.update(text,'utf8','hex')
+  crypted += cipher.final('hex');
+  return crypted;
+}
+};
 
 function getNextSequence(name) {
   var db = mongoDB.getDB();
@@ -123,6 +137,10 @@ app.post('/addUser', function(req,res) {
   var password = req.body.pw;
   var isStudent = req.body.isStudent;
 
+  //encrypt password
+  var pw = encrypt(password);
+  //console.log(pw);
+
   //console.log("add user:" + username + " | " + isStudent);
 
   db.collection('user').find({username:username}).toArray(function(error, documents) {
@@ -135,11 +153,11 @@ app.post('/addUser', function(req,res) {
       db.collection('counter').find({_id:"_userID"}).toArray(function(err,doc){
         if (isStudent==1){
           //CHANGE TO NEW DB LAYOUT
-          //db.collection('user').insert({userID:doc[0].seq, name:username, isStudent:'true', isTeacher:'false', pwd:password});
+          //db.collection('user').insert({userID:doc[0].seq, name:username, isStudent:'true', isTeacher:'false', pwd:pw});
         }
         else {
-          //CHANGE TO NEE DB LAYOUT
-          //db.collection('user').insert({userID:doc[0].seq, name:username, isStudent:'false', isTeacher:'true', pwd:password});
+          //CHANGE TO NEW DB LAYOUT
+          //db.collection('user').insert({userID:doc[0].seq, name:username, isStudent:'false', isTeacher:'true', pwd:pw});
         }
       });
 
@@ -155,7 +173,12 @@ app.post('/login', function(req,res){
   var username = req.body.un;
   var password = req.body.pw;
 
-  db.collection('user').find({name:username, pwd:password}).toArray(function(error, documents) {
+  //console.log(password);
+  //encrypt the password
+  var pw = encrypt(password);
+  //console.log(pw);
+
+  db.collection('user').find({name:username, pwd:pw}).toArray(function(error, documents) {
 
     if(documents.length > 0){
 
