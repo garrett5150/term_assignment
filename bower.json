@@ -5,6 +5,7 @@
     "jquery": "",
     "polymer": "",
     "chart.js": "^2.5.0",
-    "es6-promise": "^4.0.5"
+    "es6-promise": "^4.0.5",
+    "iron-ajax":"^1.4.3"
   }
 }

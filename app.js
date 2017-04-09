@@ -117,13 +117,15 @@ app.post('/removeCourse', function(req,res){
 
 app.post('/addUser', function(req,res) {
   var db = mongoDB.getDB();
-  var username = req.body.name;
+  var username = req.body.username;
+  var name = req.body.name;
+  var school = req.body.school;
   var password = req.body.pw;
   var isStudent = req.body.isStudent;
 
   //console.log("add user:" + username + " | " + isStudent);
 
-  db.collection('user').find({name:username}).toArray(function(error, documents) {
+  db.collection('user').find({username:username}).toArray(function(error, documents) {
     //console.log(documents.length);
     if (documents.length > 0){
       res.redirect("/signup?un=true");
@@ -132,10 +134,12 @@ app.post('/addUser', function(req,res) {
       db.collection('counter').update({_id:"_userID"},  { $inc: { seq: 1} } );
       db.collection('counter').find({_id:"_userID"}).toArray(function(err,doc){
         if (isStudent==1){
-          db.collection('user').insert({userID:doc[0].seq, name:username, isStudent:'true', isTeacher:'false', pwd:password});
+          //CHANGE TO NEW DB LAYOUT
+          //db.collection('user').insert({userID:doc[0].seq, name:username, isStudent:'true', isTeacher:'false', pwd:password});
         }
         else {
-          db.collection('user').insert({userID:doc[0].seq, name:username, isStudent:'false', isTeacher:'true', pwd:password});
+          //CHANGE TO NEE DB LAYOUT
+          //db.collection('user').insert({userID:doc[0].seq, name:username, isStudent:'false', isTeacher:'true', pwd:password});
         }
       });
 
