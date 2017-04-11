@@ -2,6 +2,7 @@
 <link rel="import" href="bower_components/iron-ajax/iron-request.html">
 <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="course.html">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <dom-module id="editCourse-Form">
     <template>
         <div class="row">
@@ -44,7 +45,7 @@
                     </div>
 
                     <div class="col-md-offset-2">
-                        <button type="button" class="btn btn-success btn-sm" id="assignment">Add Assignment</button>
+                        <button type="button" class="btn btn-success btn-sm" id="assignmentBtn">Add Assignment</button>
                     </div>
 
                     <!--Where the marks will go (test and %, exam and %, project and %, etc)-->
@@ -73,7 +74,7 @@
             },
             properties: {},
             listeners: {
-                'assignment.click': 'addAssignment',
+                'assignmentBtn.click': 'addAssignment',
                 'submit': 'updateCourse'
             },
             updateCourse: function(){
@@ -93,24 +94,18 @@
 
             },
             addAssignment: function(){
-                $('.marks').append("<add-assignment>");
-                $('.marks').find('#assignment').attr('id', "assignment" + assignmentcounter);
+                $('#submit').after("<add-assgn>");
+                alert("hello");
+                //$('.marks').find('#assignment').attr('id', "assignment" + assignmentcounter);
 
-                assignmentcounter++;
+                //assignmentcounter++;
             },
             postComplete:function(){
-                var assignments = request.detail.response;
-                var assignList = $('<table><th>Name</th><th>Description</th><th>Value</th></table>');
-                $.each(assignments, function(i,item){
-
-                });
+              location.reload();
             }
         });
     </script>
 </dom-module>
-
-
-
 
 
 <!--DOM ELEMENTS FOR WHAT THE COURSE WILL BE WEIGHTED ON-->
@@ -118,11 +113,23 @@
 <dom-module id="add-assignment">
     <template>
         <div class="form-group">
-            <label for="assignment" class="col-lg-2">Assignment %</label>
+            <label for="assignment" class="col-lg-2">Add Assignment for Course </label>
             <div class="col-lg-5 input-lg">
-                <input class="assignment form-control" style="width:30% " type="number" min="0" max="100" id="assignment" placeholder="% weighted">
+                <input class="assignment form-control" style="width:30% " type="number" min="0" max="100" id="assignmentValue" placeholder="value">
+                <br>
+                <input class="assignment form-control" type="text" placeholder="Assignment Name" id="assignmentName">
+                <br>
+                <input class="assignment form-control" type="text" placeholder="Assignment Description" id="assignmentDescription">
+                <br>
+                <input class="assignment form-control button" style = "width:10%"type="button" value="Add" id ="addAssignBtn">
             </div>
         </div>
+        <iron-ajax
+                id="ajaxCall"
+                url=""
+                method="post"
+                on-response="postComplete">
+        </iron-ajax>
     </template>
     <script>
         Polymer({
@@ -132,9 +139,70 @@
             },
             properties: {},
             listeners: {
-
+              'addAssignmentBtn.click':'addAssign'
+            },
+            addAssign: function(){
+              this.$.ajaxCall.url="/addAssignment";
+              var value = $('#assignmentValue').val();
+              var name = $('#assignmentName').val();
+              var desc = $('#assignmentDescription').val();
+              var courseID = $('#id').val();
+              this.$.ajaxCall.params={'value':value, 'name':name, 'description':desc, 'courseID':courseID};
+              this.$.ajaxCall.generateRequest();
+              //console.log(value + " " + name + " " + desc + " " + courseID);
+            },
+            postComplete: function(){
+              location.reload();
             }
         });
     </script>
 </dom-module>
 
+<dom-module id="add-assgn">
+  <template>
+    <div class="form-group">
+        <label for="assignment" class="col-lg-2">Add Assignment for Course </label>
+        <div class="col-lg-5 input-lg">
+            <input class="assignment form-control" style="width:30% " type="number" min="0" max="100" id="assignmentValue" placeholder="value">
+            <br>
+            <input class="assignment form-control" type="text" placeholder="Assignment Name" id="assignmentName">
+            <br>
+            <input class="assignment form-control" type="text" placeholder="Assignment Description" id="assignmentDescription">
+            <br>
+            <input class="assignment form-control button" style = "width:10%"type="button" value="Add" id ="addYo">
+        </div>
+    </div>
+
+    <iron-ajax
+            id="ajaxCall"
+            url=""
+            method="post"
+            on-response="postComplete">
+    </iron-ajax>
+  </template>
+  <script>
+  Polymer({
+    is: 'add-assgn',
+    ready:function(){
+
+    },
+    listeners: {
+      'addYo.click':'addAssign'
+    },
+    addAssign: function(){
+      this.$.ajaxCall.url="/addAssignment";
+      var value = $('#assignmentValue').val();
+      var name = $('#assignmentName').val();
+      var desc = $('#assignmentDescription').val();
+      var courseID = $('#id').val();
+      this.$.ajaxCall.params={'value':value, 'name':name, 'description':desc, 'courseID':courseID};
+      this.$.ajaxCall.generateRequest();
+      //console.log(value + " " + name + " " + desc + " " + courseID);
+    },
+    postComplete: function(request){
+
+
+    }
+    });
+  </script>
+</dom-module>

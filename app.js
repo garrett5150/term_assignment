@@ -41,6 +41,14 @@ function getNextSequence(name) {
    //return ret.seq;
 }
 
+function update(courseID,db){
+  console.log(courseID);
+  db.collection('course').find({courseID:courseID}).toArray(function (error,documents){
+    console.log(documents[0]);
+    //var courseName = documents[0].course_Name;
+    //db.collection('assignment').update({assignmentID:doc[0].seq}, { $set:{course_Name:courseName}} );
+  });
+}
 app.use(express.static("themes"));
 app.use(express.static("public"));
 app.use(bodyParse.urlencoded({extended:false}));
@@ -104,11 +112,41 @@ app.post('/updateCourse', function(req,res)
     var id = req.session.userID;
     var name = req.query.courseName;
     var instructor = req.query.instructorName;
-    var gradeRequired = req.query.gradeRequired;
-    var gradeDesired = req.query.gradeDesired;
-    var courseID = req.query.courseID;
+    var gradeRequired = parseInt(req.query.gradeRequired);
+    var gradeDesired = parseInt(req.query.gradeDesired);
+    var courseID = parseInt(req.query.courseID);
     var newCourseName = req.query.newCourseName;
-    //still need the assignment variables.
+
+    db.collection('course').update({courseID:courseID}, { $set:{course_Name:newCourseName,instructorName:instructor}});
+    db.collection('user_course').update({courseID:courseID}, { $set:{gradeRequired:gradeRequired,gradeDesired:gradeDesired}});
+    db.collection('assignment').update({courseID:courseID}, { $set:{course_Name:newCourseName}}, {multi:true});
+});
+
+app.post('/addAssignment', function(req,res){
+
+  var db = mongoDB.getDB();
+  var id = req.session.userID;
+  var value = req.query.value;
+  var name = req.query.name;
+  var desc = req.query.description;
+  var courseIDNum = parseInt(req.query.courseID);
+
+
+
+  db.collection('counter').update({_id:"_assignmentID"},  { $inc: { seq: 1} } );
+  db.collection('counter').find({_id:"_assignmentID"}).toArray(function(err,doc){
+    db.collection('assignment').insert({assignmentID:doc[0].seq, courseID:courseIDNum, value:value, name:name, description:desc});
+    db.collection('user_assignment').insert({userID:id, assignmentID:doc[0].seq});
+
+    db.collection('course').find({courseID:courseIDNum}).toArray(function (error,documents){
+
+      var courseName = documents[0].course_Name;
+      db.collection('assignment').update({assignmentID:doc[0].seq}, { $set:{course_Name:courseName}} );
+    });
+  });
+
+// update(courseIDNum,db);
+
 
 });
 
