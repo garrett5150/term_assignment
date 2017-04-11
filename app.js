@@ -6,9 +6,8 @@ var bodyParse = require('body-parser');
 var http = require('http');
 var indexrouter = express.Router();
 var mongoDB = require('app.js');
-<<<<<<< HEAD
+
 var querystring = require('querystring');
-=======
 var crypto = require('crypto'),
     algorithm = 'aes-256-ctr',
     cryPass = 'd6F3Efeq';
@@ -22,8 +21,8 @@ function encrypt(text){
   crypted += cipher.final('hex');
   return crypted;
 }
-};
->>>>>>> 201aad6f994e7eff8f2d23af39491bbaaf1a057e
+}
+
 
 function getNextSequence(name) {
   var db = mongoDB.getDB();
@@ -175,27 +174,21 @@ app.post('/login', function(req,res){
 
   var username = req.body.un;
   var password = req.body.pw;
+
+  var pw = encrypt(password);
   var login =
   {
     'username':username,
-    'password':password
+    'password':pw
   }
 
-  postData = querystring.stringify(login)
 
-  //console.log(password);
-  //encrypt the password
-  var pw = encrypt(password);
-  //console.log(pw);
+  var postData = querystring.stringify(login);
 
-  db.collection('user').find({name:username, pwd:pw}).toArray(function(error, documents) {
 
-    if(documents.length > 0){
 
-      req.session.token = "true";
-      req.session.userID = documents[0].userID;
-      //console.log(req.session.userID);
-      res.send('http://localhost:3000/index');
+
+
 
 
   var keepAliveAgent = new http.Agent(
