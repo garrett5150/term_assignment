@@ -6,7 +6,24 @@ var bodyParse = require('body-parser');
 var http = require('http');
 var indexrouter = express.Router();
 var mongoDB = require('app.js');
+<<<<<<< HEAD
 var querystring = require('querystring');
+=======
+var crypto = require('crypto'),
+    algorithm = 'aes-256-ctr',
+    cryPass = 'd6F3Efeq';
+
+
+function encrypt(text){
+  if (text == undefined){ }
+  else {
+  var cipher = crypto.createCipher(algorithm,cryPass)
+  var crypted = cipher.update(text,'utf8','hex')
+  crypted += cipher.final('hex');
+  return crypted;
+}
+};
+>>>>>>> 201aad6f994e7eff8f2d23af39491bbaaf1a057e
 
 function getNextSequence(name) {
   var db = mongoDB.getDB();
@@ -118,13 +135,19 @@ app.post('/removeCourse', function(req,res){
 
 app.post('/addUser', function(req,res) {
   var db = mongoDB.getDB();
-  var username = req.body.name;
+  var username = req.body.username;
+  var name = req.body.name;
+  var school = req.body.school;
   var password = req.body.pw;
   var isStudent = req.body.isStudent;
 
+  //encrypt password
+  var pw = encrypt(password);
+  //console.log(pw);
+
   //console.log("add user:" + username + " | " + isStudent);
 
-  db.collection('user').find({name:username}).toArray(function(error, documents) {
+  db.collection('user').find({username:username}).toArray(function(error, documents) {
     //console.log(documents.length);
     if (documents.length > 0){
       res.redirect("/signup?un=true");
@@ -133,10 +156,12 @@ app.post('/addUser', function(req,res) {
       db.collection('counter').update({_id:"_userID"},  { $inc: { seq: 1} } );
       db.collection('counter').find({_id:"_userID"}).toArray(function(err,doc){
         if (isStudent==1){
-          db.collection('user').insert({userID:doc[0].seq, name:username, isStudent:'true', isTeacher:'false', pwd:password});
+          //CHANGE TO NEW DB LAYOUT
+          //db.collection('user').insert({userID:doc[0].seq, name:username, isStudent:'true', isTeacher:'false', pwd:pw});
         }
         else {
-          db.collection('user').insert({userID:doc[0].seq, name:username, isStudent:'false', isTeacher:'true', pwd:password});
+          //CHANGE TO NEW DB LAYOUT
+          //db.collection('user').insert({userID:doc[0].seq, name:username, isStudent:'false', isTeacher:'true', pwd:pw});
         }
       });
 
@@ -157,6 +182,21 @@ app.post('/login', function(req,res){
   }
 
   postData = querystring.stringify(login)
+
+  //console.log(password);
+  //encrypt the password
+  var pw = encrypt(password);
+  //console.log(pw);
+
+  db.collection('user').find({name:username, pwd:pw}).toArray(function(error, documents) {
+
+    if(documents.length > 0){
+
+      req.session.token = "true";
+      req.session.userID = documents[0].userID;
+      //console.log(req.session.userID);
+      res.send('http://localhost:3000/index');
+
 
   var keepAliveAgent = new http.Agent(
     {

@@ -75,11 +75,11 @@
         $('#contentArea').empty();
         var courseList = $('<div class="row"><p> IN PROGRESS </p></div>');
         $.post('/listCourses', function (data) {
-
             $.each(data, function (i, item) {
                 var course = $('<div class=\"row\ col-xs-10 col-sm-10 col-md-10" style="margin-left:2px;"><course-profile done="67" name=\"' + item.course_Name + '\"></course-profile></div>');
                 courseList.append(course);
                 $('#contentArea').append(courseList);
+                console.log(courseList);
             });
 
         });
