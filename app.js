@@ -68,7 +68,8 @@ indexrouter.route('/index').get(function (req, res) {
       res.sendFile(fn);
     }
     else{
-      res.send('http://localhost:3000/error');
+      fn = __dirname + '/error.html'
+      res.sendFile(fn);
     }
 });
 
@@ -102,6 +103,9 @@ app.post('/addCourse', function(req,res) {
   var db = mongoDB.getDB();
   var id = req.session.userID;
   var name = req.query.courseName;
+  var instructor = req.query.instructorName;
+  var gradeRequired = req.query.gradeRequired;
+  var gradeDesired = req.query.gradeDesired;
 
 
 
@@ -114,13 +118,25 @@ app.post('/addCourse', function(req,res) {
   db.collection('counter').update({_id:"_courseID"},  { $inc: { seq: 1} } );
 
   db.collection('counter').find({_id:"_courseID"}).toArray(function(err,doc){
-    db.collection('course').insert({course_Name:name, teacherID: id, userID: id, courseID: doc[0].seq});
-    db.collection('user_course').insert({courseID:doc[0].seq, studentID: id, userID: id});
+    db.collection('course').insert({course_Name:name, instructorName:instructor, userID: id, courseID: doc[0].seq});
+    db.collection('user_course').insert({courseID:doc[0].seq, userID: id, gradeRequired:gradeRequired, gradeDesired:gradeDesired});
   });
 
 
 
 
+
+});
+
+app.post('/getProgress', function (req,res) {
+
+  var db = mongoDB.getDB();
+  var id = req.session.userID;
+
+
+  db.collection('user_assignment').find({userID:id}).toArray(function(err,doc){
+    res.send(doc);
+  });
 
 });
 
@@ -184,11 +200,6 @@ app.post('/login', function(req,res){
 
 
   var postData = querystring.stringify(login);
-
-
-
-
-
 
 
   var keepAliveAgent = new http.Agent(

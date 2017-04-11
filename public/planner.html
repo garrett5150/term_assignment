@@ -1,17 +1,32 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
 <link rel="import" href="bower_components/iron-ajax/iron-request.html">
 <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <dom-module id="gpa-planner">
   <template>
         <div>
 
         </div>
+        <iron-ajax
+            id="ajax"
+            url=""
+            method="post"
+            on-response="postComplete">
+        </iron-ajax>
+
+
   </template>
   <script>
   Polymer({
     is: 'gpa-planner',
     ready:function(){
-
+      alert('hello');
+      this.$.ajax.url="/getProgress";
+      this.$.ajax.generateRequest();
+    },
+    postComplete: function(request){
+      var assignments = request.detail.response;
+      
     }
     });
   </script>
