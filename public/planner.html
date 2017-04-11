@@ -9,16 +9,17 @@
       <div class="col-xs-6 col-sm-6 col-md-6">
         <div class="well">
             <div id="all">
-              <!--<div class="col-xs-6 col-sm-6 col-md-6">
-                <course-task name="assign1" desc="even" weight="20" course="Test Course 1"></course-task>
-              </div>-->
             </div>
         </div>
       </div>
       <div class="col-xs-6 col-sm-6 col-md-6">
-        <div class="well">
-          <h2 class="text-center">COMPLETE</h2>
-        </div>
+          <div class-"row"><h2 class="text-center"><strong>COMPLETE</strong></h2></div>
+          <div class="col-xs-6 col-sm-6 col-md-6"><div style="background-color:gray-lighter;" class="well">
+            <course-task name="Midterm" desc="Midterm test" weight="15" course="Web 3"></course-task>
+          </div></div>
+          <div class="col-xs-6 col-sm-6 col-md-6"><div style="background-color:gray-lighter;" class="well">
+            <course-task name="Presentation" desc="Project Presentation" weight="10" course="Web 3"></course-task>
+          </div></div>
       </div>
     </div>
 
@@ -39,7 +40,7 @@
     },
     postComplete: function(request){
       var assignments = request.detail.response;
-      var assignList = $('<div class="row"><h2 class="text-center">TO DO</h2></div>');
+      var assignList = $('<div class="row"><h2 class="text-center"><strong>TO DO</strong></h2></div>');
       $.each(assignments, function(i,item){
         var row = $('<div class=\"col-xs-6 col-sm-6 col-md-6\"><div style="background-color:white;" class=\"well\"><course-task name=\"' + item.name + '\" desc=\"' + item.description + '\" weight=\"' + item.value + '\" course=\"' + item.course_Name + '\"></course-task></div></div>');
         assignList.append(row);
