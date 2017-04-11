@@ -74,6 +74,8 @@
         Polymer({
             is: 'addCourse-Form',
             ready: function () {
+              this.$.ajax.url="/getProgress";
+              this.$.ajax.generateRequest();
             },
             properties: {},
             listeners: {
@@ -139,6 +141,13 @@
               var wantedGrade = $('#wantedGrade').val();
               this.$.ajax.params={'courseName':course_Name, 'instructorName':instructor, 'gradeRequired':minGrade, 'gradeDesired':wantedGrade};
               this.$.ajax.generateRequest();
+            }
+            postComplete:function(){
+              var assignments = request.detail.response;
+              var assignList = $('<table><th>Name</th><th>Description</th><th>Value</th></table>');
+              $.each(assignments, function(i,item){
+                
+              });
             }
         });
     </script>

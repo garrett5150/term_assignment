@@ -132,10 +132,19 @@ app.post('/getProgress', function (req,res) {
 
   var db = mongoDB.getDB();
   var id = req.session.userID;
+  var assignmentIDs = [];
 
 
   db.collection('user_assignment').find({userID:id}).toArray(function(err,doc){
-    res.send(doc);
+    for(i=0;i<doc.length;i++){
+      assignmentIDs[i] = doc[i].assignmentID;
+    }
+    db.collection('assignment').find({courseID: {$in: assignmentIDs} }).toArray(function(error,documents) {
+
+      //console.log(doc);
+      res.send(documents);
+
+    });
   });
 
 });
