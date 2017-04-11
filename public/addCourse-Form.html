@@ -143,7 +143,7 @@
               var wantedGrade = $('#wantedGrade').val();
               this.$.ajax.params={'courseName':course_Name, 'instructorName':instructor, 'gradeRequired':minGrade, 'gradeDesired':wantedGrade};
               this.$.ajax.generateRequest();
-            }
+            },
             postComplete:function(){
               var assignments = request.detail.response;
               var assignList = $('<table><th>Name</th><th>Description</th><th>Value</th></table>');
@@ -162,7 +162,7 @@
 <!--DOM ELEMENTS FOR WHAT THE COURSE WILL BE WEIGHTED ON-->
 
 
-
+<!--
 <dom-module id="add-lab">
     <template>
         <div class="form-group">
@@ -311,4 +311,4 @@
             }
         });
     </script>
-</dom-module>
+</dom-module>-->

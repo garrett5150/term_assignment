@@ -278,18 +278,6 @@ app.post('/displayUserInfo', function(req,res){
   });
 });
 
-app.post('/editCourse', function(req, res)
-{
-    /*var db = mongoDB.getDB();
-    var id = req.session.userID;
-    var courseID = req.query.courseID;
-    db.collection('course').find({"course_name": name}).toArray(function(error,documents)
-    {
-        console.log('success');
-        console.log(name);
-        res.send(documents[0].name)
-    });*/
-});
 
 app.post('/logout', function(req,res) {
   req.session.token = null;
