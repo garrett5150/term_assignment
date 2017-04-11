@@ -1,6 +1,7 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
 <link rel="import" href="bower_components/iron-ajax/iron-request.html">
 <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <dom-module id="addCourse-Form">
     <template>
         <div class="row">
@@ -37,16 +38,14 @@
                         </div>
                     </div>
 
-
-                    <!--being moved to edit-course.html-->
-                    <!--<div class="col-md-offset-2">
+                    <div class="col-md-offset-2">
                         <button type="button" class="btn btn-success btn-sm" id="lab">Add Lab</button>
                         <button type="button" class="btn btn-success btn-sm" id="quiz">Add Quiz</button>
                         <button type="button" class="btn btn-success btn-sm" id="exam">Add Exam</button>
                         <button type="button" class="btn btn-success btn-sm" id="project">Add Project</button>
                         <button type="button" class="btn btn-success btn-sm" id="assignment">Add Assignment</button>
                         <button type="button" class="btn btn-success btn-sm" id="other">Add Other</button>
-                    </div>-->
+                    </div>
 
                     <!--Where the marks will go (test and %, exam and %, project and %, etc)-->
                     <div class="marks"></div>
@@ -81,16 +80,16 @@
             },
             properties: {},
             listeners: {
-                'submit':'addCourse'/*,
+                'submit':'addCourse',
                 'lab.click': 'addLab',
                 'quiz.click': 'addQuiz',
                 'exam.click': 'addExam',
                 'project.click': 'addProject',
                 'assignment.click': 'addAssignment',
-                'other.click': 'addOther'*/
+                'other.click': 'addOther'
 
             },
-           /* addLab: function(){
+            addLab: function(){
                 $('.marks').append("<add-lab>");
                 $('.marks').find('#lab').attr('id', "lab" + labcounter);
 
@@ -131,7 +130,7 @@
                 $('.marks').find('#otherName').attr('id', "otherName" + othercounter);
 
                 othercounter++;
-            },*/
+            },
 
             /*this is where we will add to the db*/
             addCourse: function(){
@@ -143,13 +142,9 @@
               var wantedGrade = $('#wantedGrade').val();
               this.$.ajax.params={'courseName':course_Name, 'instructorName':instructor, 'gradeRequired':minGrade, 'gradeDesired':wantedGrade};
               this.$.ajax.generateRequest();
-            }
-            postComplete:function(){
-              var assignments = request.detail.response;
-              var assignList = $('<table><th>Name</th><th>Description</th><th>Value</th></table>');
-              $.each(assignments, function(i,item){
-                
-              });
+            },
+            postComplete:function(request){
+
             }
         });
     </script>

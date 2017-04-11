@@ -28,10 +28,10 @@
   Polymer({
     is: 'course-profile',
     ready:function(){
-            this.$.ajax.url="/editCourse";
-            var courseID = $(this).closest('button').attr('id');
-            this.$.ajax.params={'courseID':courseID};
-            this.$.ajax.generateRequest();
+            // this.$.ajax.url="/editCourse";
+            // var courseID = $(this).closest('button').attr('id');
+            // this.$.ajax.params={'courseID':courseID};
+            // this.$.ajax.generateRequest();
     },
     removeCourse:function(){
       $('#contentArea').empty();
@@ -45,6 +45,7 @@
           });
       $('#contentArea').empty();
       }
+
     });
   </script>
 </dom-module>

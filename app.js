@@ -131,12 +131,14 @@ app.post('/getProgress', function (req,res) {
 
 
   db.collection('user_assignment').find({userID:id}).toArray(function(err,doc){
+    console.log(doc);
     for(i=0;i<doc.length;i++){
       assignmentIDs[i] = doc[i].assignmentID;
     }
-    db.collection('assignment').find({courseID: {$in: assignmentIDs} }).toArray(function(error,documents) {
+    console.log(assignmentIDs);
+    db.collection('assignment').find({assignmentID: {$in: assignmentIDs} }).toArray(function(error,documents) {
 
-      //console.log(doc);
+      console.log(documents);
       res.send(documents);
 
     });
