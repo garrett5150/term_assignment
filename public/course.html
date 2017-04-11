@@ -8,18 +8,30 @@
           <div class="pull-right">
           <span class="glyphicon glyphicon-remove" aria-hidden="true" on-click="removeCourse"></span>
           </div>
+          <button class="btn-xs btn-default" id="{{id}}">Edit</button>
         </div>
     <div class="progress">
       <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{done}}" aria-valuemin="0" aria-valuemax="100" style="width: {{done}}%">
         <span class="sr-only">{{done}}% Complete</span>
       </div>
   </div>
+
+    <iron-ajax
+            id="ajax"
+            url=""
+            method="post"
+            handle-as="text"
+            on-response="postComplete">
+    </iron-ajax>
   </template>
   <script>
   Polymer({
     is: 'course-profile',
     ready:function(){
-
+            this.$.ajax.url="/editCourse";
+            var courseID = $(this).closest('button').attr('id');
+            this.$.ajax.params={'courseID':courseID};
+            this.$.ajax.generateRequest();
     },
     removeCourse:function(){
       $('#contentArea').empty();

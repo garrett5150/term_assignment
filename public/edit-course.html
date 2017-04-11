@@ -1,69 +1,37 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
 <link rel="import" href="bower_components/iron-ajax/iron-request.html">
 <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
-<dom-module id="addCourse-Form">
+<link rel="import" href="course.html">
+<dom-module id="editCourse-Form">
     <template>
         <div class="row">
             <div class="col-md-offset-1">
-                <legend>Add a Course</legend>
+                <legend>Edit a Course</legend>
                 <form action="" class="form-horizontal">
-                    <div class="form-group">
-                        <label for="name" class="col-lg-2">Course Name</label>
-                        <div class="col-lg-5 input-lg">
-                            <input class="form-control" type="text" id="name" placeholder="Course Name">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="instrutor" class="col-lg-2">Instructor Name</label>
-                        <div class="col-lg-5 input-lg">
-                            <input class="form-control" type="text" id="instrutor" placeholder="Instructor">
-                        </div>
-                    </div>
 
 
 
-                    <div class="form-group">
-                        <label for="minimumGrade" class="col-lg-2">Minimum Grade Required</label>
-                        <div class="col-lg-5 input-lg">
-                            <input class="form-control" style="width:30% " type="number" min="0" max="100" id="minimumGrade" placeholder="Minimum Grade">
-                        </div>
-                    </div>
+                    <!--<div id="contentArea"></div>-->
 
-                    <div class="form-group">
-                        <label for="wantedGrade" class="col-lg-2">Grade Wanted</label>
-                        <div class="col-lg-5 input-lg">
-                            <input class="form-control" style="width:30% " type="number" min="0" max="100" id="wantedGrade" placeholder="Grade Wanted">
-                        </div>
-                    </div>
-
-
-                    <!--being moved to edit-course.html-->
-                    <!--<div class="col-md-offset-2">
+                    <div class="col-md-offset-2">
                         <button type="button" class="btn btn-success btn-sm" id="lab">Add Lab</button>
                         <button type="button" class="btn btn-success btn-sm" id="quiz">Add Quiz</button>
                         <button type="button" class="btn btn-success btn-sm" id="exam">Add Exam</button>
                         <button type="button" class="btn btn-success btn-sm" id="project">Add Project</button>
                         <button type="button" class="btn btn-success btn-sm" id="assignment">Add Assignment</button>
                         <button type="button" class="btn btn-success btn-sm" id="other">Add Other</button>
-                    </div>-->
+                    </div>
 
                     <!--Where the marks will go (test and %, exam and %, project and %, etc)-->
                     <div class="marks"></div>
                     <br/></br>
-                      <div class="col-md-offset-2">
+                    <div class="col-md-offset-2">
                         <button type="submit" class="btn btn-warning" id="submit">Submit</button>
-                      </div>
+                    </div>
                 </form>
             </div>
         </div>
 
-  <iron-ajax
-      id="ajax"
-      url=""
-      method="post"
-      on-response="postComplete">
-  </iron-ajax>
     </template>
     <script>
         var labcounter = 1;
@@ -74,22 +42,33 @@
         var othercounter = 1;
 
         Polymer({
-            is: 'addCourse-Form',
+            is: 'editCourse-Form',
             ready: function () {
+
+
+
+                /*$('#contentArea').empty();
+                var courseList = $('<div class="row"><p> IN PROGRESS </p></div>');
+                $.post('/listCourses', function (data) {
+                        $.each(data, function (i, item) {
+                            var course = $('<div class=\"row\ col-xs-10 col-sm-10 col-md-10" style="margin-left:2px;"><course-profile done="67" name=\"' + item.course_Name + '\"></course-profile></div>');
+                            courseList.append(course);
+                            $('#contentArea').append(courseList);
+                            console.log(courseList);
+                        });*/
 
             },
             properties: {},
             listeners: {
-                'submit':'addCourse'/*,
                 'lab.click': 'addLab',
                 'quiz.click': 'addQuiz',
                 'exam.click': 'addExam',
                 'project.click': 'addProject',
                 'assignment.click': 'addAssignment',
-                'other.click': 'addOther'*/
+                'other.click': 'addOther'
 
             },
-           /* addLab: function(){
+            addLab: function(){
                 $('.marks').append("<add-lab>");
                 $('.marks').find('#lab').attr('id', "lab" + labcounter);
 
@@ -130,14 +109,6 @@
                 $('.marks').find('#otherName').attr('id', "otherName" + othercounter);
 
                 othercounter++;
-            },*/
-
-            /*this is where we will add to the db*/
-            addCourse: function(){
-              this.$.ajax.url="/addCourse";
-              var course_Name = $('#name').val();
-              this.$.ajax.params={'courseName':course_Name};
-              this.$.ajax.generateRequest();
             }
         });
     </script>
@@ -278,10 +249,10 @@
             <div class="col-lg-5 input-lg">
                 <div class="row">
                     <div class="col-md-8">
-                <input class="other form-control" type="text" id="otherName" placeholder="Name">
+                        <input class="other form-control" type="text" id="otherName" placeholder="Name">
                     </div>
                     <div class="col-md-4">
-                <input class="other form-control" type="number" min="0" max="100" id="other" placeholder="% weighted">
+                        <input class="other form-control" type="number" min="0" max="100" id="other" placeholder="% weighted">
                     </div>
                 </div>
             </div>

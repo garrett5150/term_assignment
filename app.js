@@ -117,11 +117,6 @@ app.post('/addCourse', function(req,res) {
     db.collection('course').insert({course_Name:name, teacherID: id, userID: id, courseID: doc[0].seq});
     db.collection('user_course').insert({courseID:doc[0].seq, studentID: id, userID: id});
   });
-
-
-
-
-
 });
 
 app.post('/removeCourse', function(req,res){
@@ -261,8 +256,19 @@ app.post('/displayUserInfo', function(req,res){
     console.log(documents[0].name);
     res.send(documents[0].name);
   });
+});
 
-
+app.post('/editCourse', function(req, res)
+{
+    /*var db = mongoDB.getDB();
+    var id = req.session.userID;
+    var courseID = req.query.courseID;
+    db.collection('course').find({"course_name": name}).toArray(function(error,documents)
+    {
+        console.log('success');
+        console.log(name);
+        res.send(documents[0].name)
+    });*/
 });
 
 app.post('/logout', function(req,res) {
