@@ -26,8 +26,14 @@
     },
     postComplete: function(request){
       var assignments = request.detail.response;
-      var assignList = $('<table><th>Name</th><th>Description</th></table>');
-      
+      var assignList = $('<table><th>Name</th><th>Description</th><th>Value</th></table>');
+      $.each(assignments, function(i,item){
+        var row = $('<tr><td>' + item.name +'</td><td>' + item.description +'</td><td>' + item.value + '</td></tr>');
+        assignList.append(row);
+
+      });
+      $('body').append(assignList);
+
     }
     });
   </script>
