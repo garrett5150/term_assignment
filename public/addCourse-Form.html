@@ -37,17 +37,6 @@
                         </div>
                     </div>
 
-
-                    <!--being moved to edit-course.html-->
-                    <!--<div class="col-md-offset-2">
-                        <button type="button" class="btn btn-success btn-sm" id="lab">Add Lab</button>
-                        <button type="button" class="btn btn-success btn-sm" id="quiz">Add Quiz</button>
-                        <button type="button" class="btn btn-success btn-sm" id="exam">Add Exam</button>
-                        <button type="button" class="btn btn-success btn-sm" id="project">Add Project</button>
-                        <button type="button" class="btn btn-success btn-sm" id="assignment">Add Assignment</button>
-                        <button type="button" class="btn btn-success btn-sm" id="other">Add Other</button>
-                    </div>-->
-
                     <!--Where the marks will go (test and %, exam and %, project and %, etc)-->
                     <div class="marks"></div>
                     <br/></br>
@@ -66,13 +55,6 @@
   </iron-ajax>
     </template>
     <script>
-        var labcounter = 1;
-        var quizcounter = 1;
-        var examcounter = 1;
-        var projectcounter = 1;
-        var assignmentcounter = 1;
-        var othercounter = 1;
-
         Polymer({
             is: 'addCourse-Form',
             ready: function () {
@@ -81,57 +63,8 @@
             },
             properties: {},
             listeners: {
-                'submit':'addCourse'/*,
-                'lab.click': 'addLab',
-                'quiz.click': 'addQuiz',
-                'exam.click': 'addExam',
-                'project.click': 'addProject',
-                'assignment.click': 'addAssignment',
-                'other.click': 'addOther'*/
-
+                'submit': 'addCourse'
             },
-           /* addLab: function(){
-                $('.marks').append("<add-lab>");
-                $('.marks').find('#lab').attr('id', "lab" + labcounter);
-
-                labcounter++;
-            },
-
-            addQuiz: function(){
-                $('.marks').append("<add-quiz>");
-                $('.marks').find('#quiz').attr('id', "quiz" + quizcounter);
-
-                quizcounter++;
-            },
-
-            addExam: function(){
-                $('.marks').append("<add-exam>");
-                $('.marks').find('#exam').attr('id', "exam" + examcounter);
-
-                examcounter++;
-            },
-
-            addProject: function(){
-                $('.marks').append("<add-project>");
-                $('.marks').find('#project').attr('id', "project" + projectcounter);
-
-                projectcounter++;
-            },
-
-            addAssignment: function(){
-                $('.marks').append("<add-assignment>");
-                $('.marks').find('#assignment').attr('id', "assignment" + assignmentcounter);
-
-                assignmentcounter++;
-            },
-
-            addOther: function(){
-                $('.marks').append("<add-other>");
-                $('.marks').find('#other').attr('id', "other" + othercounter);
-                $('.marks').find('#otherName').attr('id', "otherName" + othercounter);
-
-                othercounter++;
-            },*/
 
             /*this is where we will add to the db*/
             addCourse: function(){
@@ -154,161 +87,3 @@
         });
     </script>
 </dom-module>
-
-
-
-
-
-<!--DOM ELEMENTS FOR WHAT THE COURSE WILL BE WEIGHTED ON-->
-
-
-<!--
-<dom-module id="add-lab">
-    <template>
-        <div class="form-group">
-            <label for="lab" class="col-lg-2">Lab %</label>
-            <div class="col-lg-5 input-lg">
-                <input class="lab form-control" style="width:30% " type="number" min="0" max="100" id="lab" placeholder="% weighted">
-            </div>
-        </div>
-    </template>
-    <script>
-        Polymer({
-            is: 'add-lab',
-            ready: function () {
-
-            },
-            properties: {},
-            listeners: {
-
-            }
-        });
-    </script>
-</dom-module>
-
-<dom-module id="add-quiz">
-    <template>
-        <div class="form-group">
-            <label for="lab" class="col-lg-2">Quiz %</label>
-            <div class="col-lg-5 input-lg">
-                <input class="quiz form-control" style="width:30% " type="number" min="0" max="100" id="quiz" placeholder="% weighted">
-            </div>
-        </div>
-    </template>
-    <script>
-        Polymer({
-            is: 'add-quiz',
-            ready: function () {
-
-            },
-            properties: {},
-            listeners: {
-
-            }
-        });
-    </script>
-</dom-module>
-
-<dom-module id="add-exam">
-    <template>
-        <div class="form-group">
-            <label for="lab" class="col-lg-2">Exam %</label>
-            <div class="col-lg-5 input-lg">
-                <input class="exam form-control" style="width:30% " type="number" min="0" max="100" id="exam" placeholder="% weighted">
-            </div>
-        </div>
-    </template>
-    <script>
-        Polymer({
-            is: 'add-exam',
-            ready: function () {
-
-            },
-            properties: {},
-            listeners: {
-
-            }
-        });
-    </script>
-</dom-module>
-
-
-<dom-module id="add-project">
-    <template>
-        <div class="form-group">
-            <label for="lab" class="col-lg-2">Project %</label>
-            <div class="col-lg-5 input-lg">
-                <input class="project form-control" style="width:30% " type="number" min="0" max="100" id="project" placeholder="% weighted">
-            </div>
-        </div>
-    </template>
-    <script>
-        Polymer({
-            is: 'add-project',
-            ready: function () {
-
-            },
-            properties: {},
-            listeners: {
-
-            }
-        });
-    </script>
-</dom-module>
-
-
-<dom-module id="add-assignment">
-    <template>
-        <div class="form-group">
-            <label for="lab" class="col-lg-2">Assignment %</label>
-            <div class="col-lg-5 input-lg">
-                <input class="assignment form-control" style="width:30% " type="number" min="0" max="100" id="assignment" placeholder="% weighted">
-            </div>
-        </div>
-    </template>
-    <script>
-        Polymer({
-            is: 'add-assignment',
-            ready: function () {
-
-            },
-            properties: {},
-            listeners: {
-
-            }
-        });
-    </script>
-</dom-module>
-
-
-<dom-module id="add-other">
-    <template>
-
-
-        <div class="form-group">
-            <label for="lab" class="col-lg-2">Other</label>
-            <div class="col-lg-5 input-lg">
-                <div class="row">
-                    <div class="col-md-8">
-                <input class="other form-control" type="text" id="otherName" placeholder="Name">
-                    </div>
-                    <div class="col-md-4">
-                <input class="other form-control" type="number" min="0" max="100" id="other" placeholder="% weighted">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </template>
-    <script>
-        Polymer({
-            is: 'add-other',
-            ready: function () {
-
-            },
-            properties: {},
-            listeners: {
-
-            }
-        });
-    </script>
-</dom-module>-->

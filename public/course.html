@@ -26,10 +26,10 @@
 
       },
     editCourse:function(){
-        console.log(this.id);
         var id = this.id;
+        var name = this.name;
         $('.mainContent').empty();
-        $('.mainContent').append("<editCourse-Form id='" + id + "'>");
+        $('.mainContent').append("<editCourse-Form id='" + id + "' name='"+ name +"'>");
     },
     removeCourse:function(){
       $('#contentArea').empty();
