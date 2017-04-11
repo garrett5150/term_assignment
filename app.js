@@ -6,6 +6,7 @@ var bodyParse = require('body-parser');
 var http = require('http');
 var indexrouter = express.Router();
 var mongoDB = require('app.js');
+var querystring = require('querystring');
 
 function getNextSequence(name) {
   var db = mongoDB.getDB();
@@ -147,27 +148,61 @@ app.post('/addUser', function(req,res) {
 
 app.post('/login', function(req,res){
 
-  var db = mongoDB.getDB();
   var username = req.body.un;
   var password = req.body.pw;
+  var login =
+  {
+    'username':username,
+    'password':password
+  }
 
-  db.collection('user').find({name:username, pwd:password}).toArray(function(error, documents) {
+  postData = querystring.stringify(login)
 
-    if(documents.length > 0){
-
-      req.session.token = "true";
-      req.session.userID = documents[0].userID;
-      //console.log(req.session.userID);
-      res.send('http://localhost:3000/index');
-
+  var keepAliveAgent = new http.Agent(
+    {
+      keepAlive: true
     }
-    else{
-      res.send('http://localhost:3000/error');
+  );
+
+  var post_options = {
+    host:'localhost',
+    port:'3001',
+    path:'http://localhost:3001/authenticateUser',
+    method:'POST',
+    agent: keepAliveAgent,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
     }
-   //res.send(documents);
-  });
+  }
+  var token;
+  var post_req = http.request(post_options, function(resp) {
+        resp.setEncoding('utf8');
+        resp.on('data', function (chunk) {
+
+              token = JSON.parse(chunk);
+
+              var destination;
+              if(token.token == 'True')
+              {
+                req.session.token="true";
+                req.session.userID = token.userID;
+                var fn=__dirname + '/public/' + 'secure.html'
+
+              destination = 'http://localhost:3000/index';
+
+              }
+              else{
+                destination = 'http://localhost:3000/error';
+              }
 
 
+
+              res.send(destination);
+        })
+    })
+
+    post_req.write(postData);
+    post_req.end();
 
 });
 
