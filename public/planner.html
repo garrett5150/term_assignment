@@ -26,9 +26,9 @@
     },
     postComplete: function(request){
       var assignments = request.detail.response;
-      var assignList = $('<table><th>Name</th><th>Description</th><th>Value</th></table>');
+      var assignList = $('<table><th>Name</th><th>Description</th><th>Value</th><th>Course Name</th></table>');
       $.each(assignments, function(i,item){
-        var row = $('<tr><td>' + item.name +'</td><td>' + item.description +'</td><td>' + item.value + '</td></tr>');
+        var row = $('<tr><td>' + item.name +'</td><td>' + item.description +'</td><td>' + item.value + '</td><td>' + item.course_Name+'</td></tr>');
         assignList.append(row);
 
       });
