@@ -138,7 +138,7 @@ app.post('/getProgress', function (req,res) {
     console.log(assignmentIDs);
     db.collection('assignment').find({assignmentID: {$in: assignmentIDs} }).toArray(function(error,documents) {
 
-      console.log(documents);
+
       res.send(documents);
 
     });
