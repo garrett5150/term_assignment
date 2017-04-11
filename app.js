@@ -98,6 +98,20 @@ app.post('/listCourses', function(req,res){
 
 });
 
+app.post('/updateCourse', function(req,res)
+{
+    var db = mongoDB.getDB();
+    var id = req.session.userID;
+    var name = req.query.courseName;
+    var instructor = req.query.instructorName;
+    var gradeRequired = req.query.gradeRequired;
+    var gradeDesired = req.query.gradeDesired;
+    var courseID = req.query.courseID;
+    var newCourseName = req.query.newCourseName;
+    //still need the assignment variables.
+
+});
+
 app.post('/addCourse', function(req,res) {
 
   var db = mongoDB.getDB();
@@ -202,7 +216,7 @@ app.post('/login', function(req,res){
   {
     'username':username,
     'password':pw
-  }
+  };
 
 
   var postData = querystring.stringify(login);
@@ -223,7 +237,7 @@ app.post('/login', function(req,res){
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     }
-  }
+  };
   var token;
   var post_req = http.request(post_options, function(resp) {
         resp.setEncoding('utf8');
@@ -267,7 +281,7 @@ app.get('/studentpage', function(req,res)
   var fn=__dirname + '/public/' + 'student.html'
   console.log(fn);
   res.sendFile(fn);
-})
+});
 
 
 
