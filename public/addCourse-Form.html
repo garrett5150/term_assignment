@@ -76,7 +76,6 @@
         Polymer({
             is: 'addCourse-Form',
             ready: function () {
-
             },
             properties: {},
             listeners: {
@@ -136,7 +135,11 @@
             addCourse: function(){
               this.$.ajax.url="/addCourse";
               var course_Name = $('#name').val();
-              this.$.ajax.params={'courseName':course_Name};
+              var instructor = $('#instrutor').val();
+
+              var minGrade = $('#minimumGrade').val();
+              var wantedGrade = $('#wantedGrade').val();
+              this.$.ajax.params={'courseName':course_Name, 'instructorName':instructor, 'gradeRequired':minGrade, 'gradeDesired':wantedGrade};
               this.$.ajax.generateRequest();
             }
         });
