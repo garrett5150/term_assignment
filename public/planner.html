@@ -4,7 +4,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <dom-module id="gpa-planner">
   <template>
-        <div>
+        <div id="all">
 
         </div>
         <iron-ajax
@@ -20,7 +20,7 @@
   Polymer({
     is: 'gpa-planner',
     ready:function(){
-      alert('hello');
+      //alert('hello');
       this.$.ajax.url="/getProgress";
       this.$.ajax.generateRequest();
     },
@@ -32,7 +32,7 @@
         assignList.append(row);
 
       });
-      $('body').append(assignList);
+      $('#all').append(assignList);
 
     }
     });
