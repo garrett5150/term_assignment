@@ -172,11 +172,11 @@ app.post('/addUser', function(req,res) {
       db.collection('counter').find({_id:"_userID"}).toArray(function(err,doc){
         if (isStudent==1){
           //CHANGE TO NEW DB LAYOUT
-          //db.collection('user').insert({userID:doc[0].seq, name:username, isStudent:'true', isTeacher:'false', pwd:pw});
+          db.collection('user').insert({userID:doc[0].seq, name:username, isStudent:'true', isTeacher:'false', pwd:pw});
         }
         else {
           //CHANGE TO NEW DB LAYOUT
-          //db.collection('user').insert({userID:doc[0].seq, name:username, isStudent:'false', isTeacher:'true', pwd:pw});
+          db.collection('user').insert({userID:doc[0].seq, name:username, isStudent:'false', isTeacher:'true', pwd:pw});
         }
       });
 
