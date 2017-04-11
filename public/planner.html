@@ -1,20 +1,33 @@
 <link rel="import" href="bower_components/polymer/polymer.html">
 <link rel="import" href="bower_components/iron-ajax/iron-request.html">
 <link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="task.html">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <dom-module id="gpa-planner">
   <template>
-        <div id="all">
-
+    <div id="row">
+      <div class="col-xs-6 col-sm-6 col-md-6">
+        <div class="well">
+            <div id="all">
+              <!--<div class="col-xs-6 col-sm-6 col-md-6">
+                <course-task name="assign1" desc="even" weight="20" course="Test Course 1"></course-task>
+              </div>-->
+            </div>
         </div>
-        <iron-ajax
-            id="ajax"
-            url=""
-            method="post"
-            on-response="postComplete">
-        </iron-ajax>
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-6">
+        <div class="well">
+          <h2 class="text-center">COMPLETE</h2>
+        </div>
+      </div>
+    </div>
 
-
+    <iron-ajax
+        id="ajax"
+        url=""
+        method="post"
+        on-response="postComplete">
+    </iron-ajax>
   </template>
   <script>
   Polymer({
@@ -26,9 +39,9 @@
     },
     postComplete: function(request){
       var assignments = request.detail.response;
-      var assignList = $('<table><th>Name</th><th>Description</th><th>Value</th><th>Course Name</th></table>');
+      var assignList = $('<div class="row"><h2 class="text-center">TO DO</h2></div>');
       $.each(assignments, function(i,item){
-        var row = $('<tr><td>' + item.name +'</td><td>' + item.description +'</td><td>' + item.value + '</td><td>' + item.course_Name+'</td></tr>');
+        var row = $('<div class=\"col-xs-6 col-sm-6 col-md-6\"><div style="background-color:white;" class=\"well\"><course-task name=\"' + item.name + '\" desc=\"' + item.description + '\" weight=\"' + item.value + '\" course=\"' + item.course_Name + '\"></course-task></div></div>');
         assignList.append(row);
 
       });

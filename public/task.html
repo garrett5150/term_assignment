@@ -1,0 +1,19 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="bower_components/iron-ajax/iron-request.html">
+<link rel="import" href="bower_components/iron-ajax/iron-ajax.html">
+<dom-module id="course-task">
+  <template>
+    <h3> Task: {{name}}</h3>
+    <p>Description: {{desc}}</p>
+    <p>Weight: {{weight}}%</p>
+    <p>Course: {{course}}</p>
+  </template>
+  <script>
+  Polymer({
+    is: 'course-task',
+    ready:function(){
+
+    }
+    });
+  </script>
+</dom-module>
